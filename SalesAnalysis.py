@@ -1,6 +1,6 @@
 def load_sales_data():
     salesdata = []
-    fileinput= input("Please enter you file name: ")
+    fileinput= input("Please enter the file name: ")
     if fileinput != "sales.csv":
         print("invalid file name")
     elif fileinput == "sales.csv":
@@ -10,6 +10,6 @@ def load_sales_data():
     
     with open("sales.csv" , "r"):
         for line in fileinput:
-            salesdata.append(fileinput) 
+            salesdata.append(line) 
 
             

@@ -11,5 +11,3 @@ def load_sales_data():
     with open("sales.csv" , "r"):
         for line in fileinput:
             salesdata.append(fileinput) 
-
-            

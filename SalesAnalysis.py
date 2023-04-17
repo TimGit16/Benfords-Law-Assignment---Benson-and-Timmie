@@ -1,7 +1,7 @@
 import os
 print(os.getcwd())
 folder = os.getcwd()
-fileName = folder + "\\BenLawTesting\\sales.csv"
+fileName = folder + "\\sales.csv"
 file = open(fileName, "r")
 
 

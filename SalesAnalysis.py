@@ -1,6 +1,12 @@
+import os
+print(os.getcwd())
+folder = os.getcwd()
+fileName = folder + "\\sales.csv"
+file = open(fileName, "r")
+
 def load_sales_data():
     salesdata = []
-    fileinput= input("Please enter you file name: ")
+    fileinput = input("Please enter your file name: ")
     if fileinput != "sales.csv":
         print("invalid file name")
     elif fileinput == "sales.csv":
@@ -10,12 +16,8 @@ def load_sales_data():
     
     with open("sales.csv" , "r"):
         for line in fileinput:
-            salesdata.append(fileinput) 
-import os
-print(os.getcwd())
-folder = os.getcwd()
-fileName = folder + "\\sales.csv"
-file = open(fileName, "r")
+            salesdata.append(line) 
+
 
 
 salesList = file.read() # Assigns all the text from sales.csv to variable as a string

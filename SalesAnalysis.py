@@ -7,9 +7,19 @@ def load_sales_data():
         print("Valid file")
         return
     
+    try:
+        open("sales.csv" , "r")
+        return False
+
+    except:
+        print("sales.csv does not exist ")
+        
     
     with open("sales.csv" , "r"):
         for line in fileinput:
             salesdata.append(line) 
+
+
+
 
             

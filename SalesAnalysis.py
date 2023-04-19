@@ -1,7 +1,7 @@
 import os
 print(os.getcwd())
 folder = os.getcwd()
-fileName = folder + "\\sales.csv"
+fileName = folder + "sales.csv"
 file = open(fileName, "r")
 
 def load_sales_data():
@@ -58,3 +58,34 @@ for k in range(1,10): # iterates through numbers 1 to 9 and prints their first d
      reportFreq(k)
 
 file.close()
+
+
+import matplotlib.pyplot as plt
+import os 
+
+def graph():
+    x_numbers = []
+    y_numbers = []
+
+    for num in (1,10):
+        x_numbers.append(str(num))
+        y_numbers.append(digFreqCalc(digCount(num)))
+
+
+    a = plt.plot(x_numbers, y_numbers)
+
+    plt.title(" Benford's Law First Digit Frequency")
+    plt.xlabel(" first digit")
+    plt.ylabel(" Frequency (%)") 
+
+    plt.hist(a)
+
+
+def createfile():
+    filepath = os.getcwd()
+    filename = "\results.csv"
+
+    filecreate = filepath + filename 
+
+    open(filecreate , "a")
+    filecreate.append(graph)

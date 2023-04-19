@@ -45,14 +45,14 @@ def digFreqCalc(count):
     Function: Calculates the frequency of a first digit's occurence in salesList as a percentage
     Return: Returns the frequency
     '''
-    return str(round(count/len(salesList)*100, 1))+"%" # returns the frequency of a digit as percentage in a string
+    return round(count/len(salesList)*100, 1) # returns the frequency of a digit as percentage in a string
 
 def reportFreq(digit):
     '''
     Parameter: digit, should be a single digit
     Function: Prints out the frequency of digit in a sentence including its percentage
     '''
-    print("The first digit frequency for",digit,"is:",digFreqCalc(digCount(digit))) # prints digit frequency of parameter value digit
+    print("The first digit frequency for",digit,"is:",str(digFreqCalc(digCount(digit))))+"%" # prints digit frequency of parameter value digit
 
 for k in range(1,10): # iterates through numbers 1 to 9 and prints their first digit frequency
      reportFreq(k)

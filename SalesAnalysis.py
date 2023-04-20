@@ -1,4 +1,6 @@
 import os
+import matplotlib.pyplot as plt
+
 print(os.getcwd())
 folder = os.getcwd()
 fileName = folder + "sales.csv"
@@ -11,7 +13,7 @@ def load_sales_data():
         print("invalid file name")
     elif fileinput == "sales.csv":
         print("Valid file")
-        return
+        return salesList
     
     
     with open("sales.csv" , "r"):
@@ -60,12 +62,24 @@ for k in range(1,10): # iterates through numbers 1 to 9 and prints their first d
 file.close()
 
 
-import matplotlib.pyplot as plt
-import os 
-
 def graph():
+
     x_numbers = []
     y_numbers = []
+
+    for num in (1,10):
+        x_numbers.append(str(num))
+        y_numbers.append(digFreqCalc(digCount(num)))
+
+    fig, ax = plt.subplot()
+
+    bar_container = ax.bar(x_numbers, y_numbers)
+    ax.set(x_label = " first number " , y_label = " Frequency (%) " , title = " Benford's Law First Digit Frequency ")
+    ax.bar_label(bar_container)
+
+    plt.show()
+
+
 
     for num in (1,10):
         x_numbers.append(str(num))
@@ -77,6 +91,10 @@ def graph():
     plt.title(" Benford's Law First Digit Frequency")
     plt.xlabel(" first digit")
     plt.ylabel(" Frequency (%)") 
+
+    for i in range (len(num)):
+        plt.text( i, y_numbers[i], {y_numbers}, ha = "center", va = "bottom")
+
 
     plt.hist(a)
 

@@ -15,12 +15,12 @@ def load_sales_data():
                 print("Valid File")
                 # fileName = folder + "\\" + csvName
                 with open(fileinput) as file:
-                    salesList = file.read() # Assigns all the text from sales.csv to variable as a string
-                    salesList = salesList.splitlines() # Splits lines marked by \n to create a list wihtout \n
-                    salesList.pop(0) # Removes "Postal Code, Sales" line
-                    for i in range(len(salesList)): # Iterates through salesList to make each item be only the number after the comma
-                        salesList[i] = salesList[i].split(",")[1] # Replaces item at index i to be the second item after splitting with delimiter ,
-                return salesList
+                    salesData = file.read() # Assigns all the text from sales.csv to variable as a string
+                    salesData = salesData.splitlines() # Splits lines marked by \n to create a list wihtout \n
+                    salesData.pop(0) # Removes "Postal Code, Sales" line
+                    for i in range(len(salesData)): # Iterates through salesList to make each item be only the number after the comma
+                        salesData[i] = salesData[i].split(",")[1] # Replaces item at index i to be the second item after splitting with delimiter ,
+                return salesData
         else:
             print("File Does Not Exist In Current Working Directory")
 
@@ -67,19 +67,32 @@ def graph():
 
 
 def createfile():
-    filepath = os.getcwd()
-    filename = "\results.csv"
+    resultName = folder + "\\results.csv"
+    try: 
+        resultFile = open(resultName, "a")
+        resultFile.write("Digit,Frequency\n")
+        resultFile.close()
+    except:
+        resultFile = open(resultName, "w")
+        resultFile.write("Digit,Frequency\n")
+        resultFile.close()
 
-    filecreate = filepath + filename 
+    yList = []
+    xList = []
+    for num in range(1,10): # iterates through numbers 1 to 9 and prints their first digit frequency
+        xList.append(str(num))
+        yList.append(digFreqCalc(digCount(num)))
 
-    open(filecreate , "a")
-    filecreate.append(graph)
+    for item in range(len(xList)):
+        resultFile = open(resultName, "a")
+        resultFile.write(xList[item] + "," + str(yList[item])+"\n")
+    resultFile.close()
 
 def printMenu():
     print ('''
             Sales Fraud Check \n 
             1. Load Data \n
-            2. Benford's Law Compliance Check\n
+            2. Benford's Law Compliance Check \n
             3. Show Graph \n
             4. Export Data \n
             9. Quit \n
@@ -93,6 +106,7 @@ showGraphOption = "3"
 exportDataOption = "4"
 exitCondition = "9"
 
+salesList = load_sales_data()
 while userInput != exitCondition:
     printMenu()
     userInput = input()
@@ -103,16 +117,18 @@ while userInput != exitCondition:
     elif userInput == BLCOption:
         for num in range (1,10):
             reportFreq(num)
+        if 29 <= digFreqCalc(digCount(1)) <= 32:
+            print("This data set is likely not to be fraudulent")
+        else:
+            print("This data set is likely to be fraudulent")
 
     elif userInput == showGraphOption:
         graph()
 
     elif userInput == exportDataOption:
-        pass
+        createfile()
         
-    elif userInput == exitCondition:
-        continue
-
-    else: print(" Please type in a valid option (A number from 1-9)")
+    elif userInput != exitCondition: 
+        print(" Please type in a valid option (A number from 1-9)")
 
 print("Program Terminated")

@@ -7,7 +7,7 @@ file = open(fileName, "r")
 
 def load_sales_data():
     salesdata = []
-    fileinput = input("Please enter your file name: ")
+    fileinput = input("Please enter the file name: ")
     if fileinput != "sales.csv":
         print("invalid file name")
     elif fileinput == "sales.csv":
@@ -134,7 +134,8 @@ while userInput != exitCondition:
         graph()
 
     elif userInput == exportDataOption:
-        
+        exportData()
+
     elif userInput == exitCondition:
         continue
 

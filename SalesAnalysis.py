@@ -1,4 +1,5 @@
 import os
+import matplotlib.pyplot as plt
 print(os.getcwd())
 folder = os.getcwd()
 fileName = folder + "sales.csv"
@@ -59,10 +60,6 @@ for k in range(1,10): # iterates through numbers 1 to 9 and prints their first d
 
 file.close()
 
-
-import matplotlib.pyplot as plt
-import os 
-
 def graph():
 
     x_numbers = []
@@ -110,6 +107,36 @@ def printMenu():
 userInput = ""
 loadDataOption = "1"
 BLCOption = "2" 
-showGraph = "3"
+showGraphOption = "3"
 exportDataOption = "4"
 exitCondition = "9"
+
+while userInput != exitCondition:
+    printMenu()
+
+    userInput = input()
+
+    if userInput == loadDataOption:
+        salesList = load_sales_data()
+
+    elif userInput == BLCOption:
+        for num in range (1,10):
+            reportFreq(num)
+
+    elif userInput == showGraphOption:
+        x_numbers = []
+        y_numbers = []
+
+        for num in range (1,10):
+            x_numbers.append(str(num))
+            y_numbers.append(digFreqCalc(digCount(num)))
+
+        graph()
+
+    elif userInput == exportDataOption:
+        
+    elif userInput == exitCondition:
+        continue
+
+    else: print(" Please type in a valid option (A number from 1-9)")
+

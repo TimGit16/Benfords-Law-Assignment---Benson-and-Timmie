@@ -1,6 +1,4 @@
 import os
-import matplotlib.pyplot as plt
-
 print(os.getcwd())
 folder = os.getcwd()
 fileName = folder + "sales.csv"
@@ -13,7 +11,7 @@ def load_sales_data():
         print("invalid file name")
     elif fileinput == "sales.csv":
         print("Valid file")
-        return salesList
+        return
     
     
     with open("sales.csv" , "r"):
@@ -62,24 +60,18 @@ for k in range(1,10): # iterates through numbers 1 to 9 and prints their first d
 file.close()
 
 
+import matplotlib.pyplot as plt
+import os 
+
 def graph():
 
+    fig, ax = plt.subplots()
+    bar_container = ax.bar(first, mph_speed)
+    ax.set(ylabel='Frequency (%)', title='First Digit', ylim=(0, 80))
+    ax.bar_label(
+    bar_container, fmt=lambda x: '{:.1f} km/h'.format(x * 1.61)
     x_numbers = []
     y_numbers = []
-
-    for num in (1,10):
-        x_numbers.append(str(num))
-        y_numbers.append(digFreqCalc(digCount(num)))
-
-    fig, ax = plt.subplot()
-
-    bar_container = ax.bar(x_numbers, y_numbers)
-    ax.set(x_label = " first number " , y_label = " Frequency (%) " , title = " Benford's Law First Digit Frequency ")
-    ax.bar_label(bar_container)
-
-    plt.show()
-
-
 
     for num in (1,10):
         x_numbers.append(str(num))
@@ -92,10 +84,6 @@ def graph():
     plt.xlabel(" first digit")
     plt.ylabel(" Frequency (%)") 
 
-    for i in range (len(num)):
-        plt.text( i, y_numbers[i], {y_numbers}, ha = "center", va = "bottom")
-
-
     plt.hist(a)
 
 
@@ -107,3 +95,21 @@ def createfile():
 
     open(filecreate , "a")
     filecreate.append(graph)
+
+def printMenu():
+    print ('''
+            Sales Fraud Check \n 
+            1. Load Data \n
+            2. Benford's Law Compliance Check
+            3. Show Graph \n
+            4. Export Data \n
+            9. Quit \n
+            Enter Menu Option (1-9)
+            ''')
+
+userInput = ""
+loadDataOption = "1"
+BLCOption = "2" 
+showGraph = "3"
+exportDataOption = "4"
+exitCondition = "9"

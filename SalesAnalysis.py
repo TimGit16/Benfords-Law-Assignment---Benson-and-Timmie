@@ -65,24 +65,24 @@ import os
 
 def graph():
 
-    fig, ax = plt.subplots()
-    bar_container = ax.bar(first, mph_speed)
-    ax.set(ylabel='Frequency (%)', title='First Digit', ylim=(0, 80))
-    ax.bar_label(
-    bar_container, fmt=lambda x: '{:.1f} km/h'.format(x * 1.61)
     x_numbers = []
     y_numbers = []
 
+    fig, ax = plt.subplot()
+    
     for num in (1,10):
         x_numbers.append(str(num))
         y_numbers.append(digFreqCalc(digCount(num)))
 
 
     a = plt.plot(x_numbers, y_numbers)
+    bar_container = ax.bar(x_numbers, y_numbers)
 
     plt.title(" Benford's Law First Digit Frequency")
     plt.xlabel(" first digit")
     plt.ylabel(" Frequency (%)") 
+    plt.bar_label(bar_container)
+
 
     plt.hist(a)
 

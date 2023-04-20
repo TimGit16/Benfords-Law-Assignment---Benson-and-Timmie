@@ -1,32 +1,28 @@
 import os
 import matplotlib.pyplot as plt
+import numpy as np
 print(os.getcwd())
 folder = os.getcwd()
-fileName = folder + "sales.csv"
-file = open(fileName, "r")
 
 def load_sales_data():
-    salesdata = []
-    fileinput = input("Please enter your file name: ")
-    if fileinput != "sales.csv":
-        print("invalid file name")
-    elif fileinput == "sales.csv":
-        print("Valid file")
-        return salesList
-    
-    
-    with open("sales.csv" , "r"):
-        for line in fileinput:
-            salesdata.append(line) 
-
-
-
-salesList = file.read() # Assigns all the text from sales.csv to variable as a string
-salesList = salesList.splitlines() # Splits lines marked by \n to create a list wihtout \n
-salesList.pop(0) # Removes "Postal Code, Sales" line
-for i in range(len(salesList)): # Iterates through salesList to make each item be only the number after the comma
-    salesList[i] = salesList[i].split(",")[1] # Replaces item at index i to be the second item after splitting with delimiter ,
-
+    while True:
+        csvName = "sales.csv"
+        fileinput = input("Please enter your file name (eg. sales.csv): ")
+        if os.path.isfile(folder+"\\"+fileinput):
+            if fileinput != csvName:
+                print("Invalid File Name")
+            elif fileinput == csvName:
+                print("Valid File")
+                # fileName = folder + "\\" + csvName
+                with open(fileinput) as file:
+                    salesList = file.read() # Assigns all the text from sales.csv to variable as a string
+                    salesList = salesList.splitlines() # Splits lines marked by \n to create a list wihtout \n
+                    salesList.pop(0) # Removes "Postal Code, Sales" line
+                    for i in range(len(salesList)): # Iterates through salesList to make each item be only the number after the comma
+                        salesList[i] = salesList[i].split(",")[1] # Replaces item at index i to be the second item after splitting with delimiter ,
+                return salesList
+        else:
+            print("File Does Not Exist In Current Working Directory")
 
 def digCount(num):
     '''
@@ -53,35 +49,21 @@ def reportFreq(digit):
     Parameter: digit, should be a single digit
     Function: Prints out the frequency of digit in a sentence including its percentage
     '''
-    print("The first digit frequency for",digit,"is:",str(digFreqCalc(digCount(digit))))+"%" # prints digit frequency of parameter value digit
-
-for k in range(1,10): # iterates through numbers 1 to 9 and prints their first digit frequency
-     reportFreq(k)
-
-file.close()
+    print("The first digit frequency for",digit,"is:",str(digFreqCalc(digCount(digit)))+"%") # prints digit frequency of parameter value digit
 
 def graph():
-
     x_numbers = []
     y_numbers = []
+    for n in range(1,10):
+        x_numbers.append(str(n))
+        y_numbers.append(digFreqCalc(digCount(n)))
 
-    fig, ax = plt.subplot()
-    
-    for num in (1,10):
-        x_numbers.append(str(num))
-        y_numbers.append(digFreqCalc(digCount(num)))
-
-
-    a = plt.plot(x_numbers, y_numbers)
+    fig, ax = plt.subplots()
     bar_container = ax.bar(x_numbers, y_numbers)
+    ax.set(xlabel = "Digit", ylabel='Frequency (%)', title="Benford's Law First Digit Frequency")
+    ax.bar_label(bar_container)
 
-    plt.title(" Benford's Law First Digit Frequency")
-    plt.xlabel(" first digit")
-    plt.ylabel(" Frequency (%)") 
-    plt.bar_label(bar_container)
-
-
-    plt.hist(a)
+    plt.show()
 
 
 def createfile():
@@ -97,7 +79,7 @@ def printMenu():
     print ('''
             Sales Fraud Check \n 
             1. Load Data \n
-            2. Benford's Law Compliance Check
+            2. Benford's Law Compliance Check\n
             3. Show Graph \n
             4. Export Data \n
             9. Quit \n
@@ -113,7 +95,6 @@ exitCondition = "9"
 
 while userInput != exitCondition:
     printMenu()
-
     userInput = input()
 
     if userInput == loadDataOption:
@@ -124,19 +105,14 @@ while userInput != exitCondition:
             reportFreq(num)
 
     elif userInput == showGraphOption:
-        x_numbers = []
-        y_numbers = []
-
-        for num in range (1,10):
-            x_numbers.append(str(num))
-            y_numbers.append(digFreqCalc(digCount(num)))
-
         graph()
 
     elif userInput == exportDataOption:
+        pass
         
     elif userInput == exitCondition:
         continue
 
     else: print(" Please type in a valid option (A number from 1-9)")
 
+print("Program Terminated")

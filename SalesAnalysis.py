@@ -12,7 +12,7 @@ def load_sales_data():
         print("invalid file name")
     elif fileinput == "sales.csv":
         print("Valid file")
-        return
+        return salesList
     
     
     with open("sales.csv" , "r"):

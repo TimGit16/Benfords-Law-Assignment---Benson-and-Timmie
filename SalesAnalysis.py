@@ -5,6 +5,10 @@ print(os.getcwd())
 folder = os.getcwd()
 
 def load_sales_data():
+    '''
+    Function: Takes comma separated values with two columns and puts all the second column values into a list
+    Return: Returns list of all data in second column
+    '''
     while True:
         csvName = "sales.csv"
         fileinput = input("Please enter your file name (eg. sales.csv): ") #allows the user to type in the file of the name (sales.csv)
@@ -52,6 +56,9 @@ def reportFreq(digit):
     print("The first digit frequency for",digit,"is:",str(digFreqCalc(digCount(digit)))+"%") # prints digit frequency of parameter value digit
 
 def graph():
+    '''
+    Function: Displays a graph to represent the digits along the x-axis and their first digit frequency along the y-axis
+    '''
     x_numbers = [] #appends the first digits to an empty list
     y_numbers = [] #appends the frequency to an empty list 
     for n in range(1,10): 
@@ -67,28 +74,34 @@ def graph():
 
 
 def createfile():
+    '''
+    Function: Creates or appends to a file named results.csv and appends each digit and their frequency in one row per digit
+    '''
     resultName = folder + "\\results.csv"
-    try: 
+    try: # Tries to append column names to results.csv, triggers error if file does not exist
         resultFile = open(resultName, "a")
         resultFile.write("Digit,Frequency\n")
         resultFile.close()
-    except:
+    except: # Will create new file and write column names
         resultFile = open(resultName, "w")
         resultFile.write("Digit,Frequency\n")
         resultFile.close()
 
     yList = []
     xList = []
-    for num in range(1,10): # iterates through numbers 1 to 9 and prints their first digit frequency
+    for num in range(1,10): # iterates through numbers 1 to 9 and either adds the iteration number or frequency to the corresponding list
         xList.append(str(num))
         yList.append(digFreqCalc(digCount(num)))
 
-    for item in range(len(xList)):
+    for item in range(len(xList)): # iterates through numbers 1 to 0 and writes the digit and its frequency separated by a comma
         resultFile = open(resultName, "a")
         resultFile.write(xList[item] + "," + str(yList[item])+"\n")
     resultFile.close()
 
 def printMenu(): #displays the main menu
+    '''
+    Function: Prints selection menu to provide the user with appropriate inputs to select what they want to do
+    '''
     print ('''
             Sales Fraud Check \n 
             1. Load Data \n

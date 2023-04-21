@@ -59,11 +59,11 @@ def graph():
         y_numbers.append(digFreqCalc(digCount(n))) #appends the frequency
 
     fig, ax = plt.subplots() #used to plot subplots which is the layout of the graph
-    bar_container = ax.bar(x_numbers, y_numbers) # numbers for the x and y axis
+    bar_container = ax.bar(x_numbers, y_numbers) # generates the bars of the bar graph
     ax.set(xlabel = "Digit", ylabel='Frequency (%)', title="Benford's Law First Digit Frequency") #adds a title and labels to the x and y axis
-    ax.bar_label(bar_container) #labels the x and y axis with the first digit and the frequencies
+    ax.bar_label(bar_container) #adds a label to each bar
 
-    plt.show()
+    plt.show() #displays the graph
 
 
 def createfile():
